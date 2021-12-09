@@ -17,13 +17,14 @@ def create_txt(f, start, stop):
             df.columns = ['u', 'v', 'timestamp']
             cond_ = (df['timestamp'] >= start) & (df["timestamp"] <= stop)
             sub_data = df.loc[cond_, :]
+            sub_data.to_csv(f+'.txt', sep=',', index=False, header=False)
     else:
         fn = 'sx-stackoverflow-' + f + '.txt'
         df = pd.read_csv(fn, sep=' ')
         df.columns = ['u', 'v', 'timestamp']
         cond_ = (df['timestamp'] >= start) & (df["timestamp"] <= stop)
         sub_data = df.loc[cond_, :]
-    sub_data.to_csv(f+'.txt', sep=',', index=False, header=False)
+        sub_data.to_csv(f+'.txt', sep=',', index=False, header=False)
 
 
 def build(f, dstart, dstop):
