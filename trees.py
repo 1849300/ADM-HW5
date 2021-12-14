@@ -10,6 +10,9 @@ import networkx as nx
 
 
 def create_txt(f, start, stop, *args):
+    if args != ():
+        start2 = time.mktime(time.strptime(args[0], '%Y-%m-%d'))
+        stop2 = time.mktime(time.strptime(args[1], '%Y-%m-%d'))
     if f == 'a':
         for f in ['a2q', 'c2a', 'c2q']:
             fn = 'sx-stackoverflow-' + f + '.txt'
@@ -18,8 +21,8 @@ def create_txt(f, start, stop, *args):
             cond_ = (df['timestamp'] >= start) & (df["timestamp"] <= stop)
             sub_data = df.loc[cond_, :]
             if args != ():
-                cond_ = (df['timestamp'] >= args[0]) & (
-                    df["timestamp"] <= args[1])
+                cond_ = (df['timestamp'] >= start2) & (
+                    df["timestamp"] <= stop2)
                 sub_data2 = df.loc[cond_, :]
                 sub_data = sub_data.append(sub_data2, ignore_index=True)
             sub_data.to_csv(f+'.txt', sep=',', index=False, header=False)
@@ -30,7 +33,7 @@ def create_txt(f, start, stop, *args):
         cond_ = (df['timestamp'] >= start) & (df["timestamp"] <= stop)
         sub_data = df.loc[cond_, :]
         if args != ():
-            cond_ = (df['timestamp'] >= args[0]) & (df["timestamp"] <= args[1])
+            cond_ = (df['timestamp'] >= start2) & (df["timestamp"] <= stop2)
             sub_data2 = df.loc[cond_, :]
             sub_data = sub_data.append(sub_data2, ignore_index=True)
         sub_data.to_csv(f+'.txt', sep=',', index=False, header=False)
@@ -41,7 +44,7 @@ def build(f, dstart, dstop, *args):
     stop = time.mktime(time.strptime(dstop, '%Y-%m-%d'))
 
     # if check():  # If there aren't txt files it calls the function to create them
-    create_txt(f, start, stop, *args)
+    create_txt(f, start, stop, args)
 
     G = nx.DiGraph()  # Initialize graph
 
