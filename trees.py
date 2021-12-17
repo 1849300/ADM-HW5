@@ -9,8 +9,8 @@ def create_txt(f, start, stop, *args):
     # If optional parameters are given -> we build trees based on two time intervals
     if args != ((),):
         # We convert in timestamp also the start and the end of the second interval
-        start2 = time.mktime(time.strptime(args[0], '%Y-%m-%d'))
-        stop2 = time.mktime(time.strptime(args[1], '%Y-%m-%d'))
+        start2 = time.mktime(time.strptime(args[0][0], '%Y-%m-%d'))
+        stop2 = time.mktime(time.strptime(args[0][1], '%Y-%m-%d'))
 
     if f == 'a':
         # f = 'a' means that we have to build all trees and not only one (we made that to reuse this function also for functionality one)
