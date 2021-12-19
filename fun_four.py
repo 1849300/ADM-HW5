@@ -125,7 +125,7 @@ def vis4(start_1, end_1, start_2, end_2, user_1, user_2):
     # We use mincut to compute the number of edges to remove, the (u,v) edge that we remove and the (u,v) edge that is in the path between u1 and u2
     min_edges, edge_to_remove, edges = mincut(
         graph, graph_copy, user_1, user_2)
-    print(edge_to_remove, edges)
+    print(edge_to_remove)
 
     # Initialize the graph
     g = nx.DiGraph()
@@ -153,6 +153,6 @@ def vis4(start_1, end_1, start_2, end_2, user_1, user_2):
 
     colors = [g[u][v]['color'] for u, v in g.edges]
     nx.draw(g, node_color="green", edge_color=colors,
-            node_size=1000, width=1.5, with_labels=True)
+            node_size=500, width=1.5, with_labels=True, )
 
     return plt.show(g)

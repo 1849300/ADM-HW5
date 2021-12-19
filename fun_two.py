@@ -120,7 +120,14 @@ def degree_centrality(v, graph):
 
 
 def create_matrix_P(graph, alpha):
-    ''' It builds the P matrix for PageRank algorithm '''
+    ''' We create the matrix P using this formula:
+        P=(1 - alpha) * M + alpha*P_rw
+        Where:
+        - N is the number of nodes in the graph
+        - M is a matrix of dimension N*N with all components equal to 1/N
+        - P_rw is a matrix of dimension N*N in which the components a[i,j] ,such that exist an edge between the node relative to i row and the node relative to j
+            column, are given by the normalized weight of the edge. The nodes that do not have any outgoing edge, are such that their corresponding row in P_rw
+            has all columns equal to 1/N '''
 
     N = len(graph.nodes())
     # To make the graph stochastic
@@ -160,12 +167,7 @@ def create_matrix_P(graph, alpha):
 
 
 def pagerank_score(v, graph, alpha, max_iter, tol):
-    ''' To compute the pagerank algorithm:
-        - We start from select at random a starting node;
-        - Then we initialize the q_0 vector, such that all of his components are equal to 0, except for the component relative to the starting node, which is equal to 1;
-        - for each step t of the algorithm we compute: q_t = q_(t-1) * P and we check if the algorithm converges;
-        - if the algorithm have converged we return the number of iterations needed and the page rank value relative to the node $v$ in input.
-    '''
+    ''' It computes PageRank score '''
 
     N = len(graph.nodes())
     P, pos = create_matrix_P(graph, alpha)
